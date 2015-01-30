@@ -3,8 +3,7 @@ System.config({
   "paths": {
     "*": "*.js",
     "github:*": "jspm_packages/github/*.js",
-    "npm:*": "jspm_packages/npm/*.js",
-    "angular-es6/*": "lib/*.js"
+    "npm:*": "jspm_packages/npm/*.js"
   }
 });
 

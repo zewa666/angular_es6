@@ -10,9 +10,7 @@ export class FlickrService {
   }
 
   loadImages(searchTag) {
-    var URL = `http://api.flickr.com/services/feeds/photos_public.gne?tags=' +
-               ${searchTag} +
-               '&tagmode=any&format=json&jsoncallback=JSON_CALLBACK`;
+    var URL = `http://api.flickr.com/services/feeds/photos_public.gne?tags=${searchTag}&tagmode=any&format=json&jsoncallback=JSON_CALLBACK`;
 
     return this.$http
                .jsonp(URL)
