@@ -1,7 +1,7 @@
 {
   "name": "angular-es6",
-  "version": "0.0.2",
-  "description": "AngularJS with JSPM and 6to5 for ES6",
+  "version": "0.1.0",
+  "description": "AngularJS with JSPM and Babel for ES6",
   "keywords": [
     "angularjs",
     "jspm",
@@ -13,7 +13,7 @@
   "devDependencies": {
     "browser-sync": "^1.8.1",
     "gulp": "^3.8.10",
-    "gulp-babel": "^5.0.0",
+    "gulp-babel": "^5.1.0",
     "gulp-changed": "^1.1.0",
     "gulp-jshint": "^1.9.0",
     "gulp-plumber": "^0.6.6",

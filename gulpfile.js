@@ -20,26 +20,17 @@ var compilerOptions = {
   filename: '',
   filenameRelative: '',
   blacklist: [],
-  whitelist: [],
-  modules: '',
+  modules: 'system',
   sourceMap: true,
   sourceMapName: '',
   sourceFileName: '',
   sourceRoot: '',
   moduleRoot: '',
   moduleIds: false,
-  runtime: false,
-  experimental: false,
-  format: {
-    comments: false,
-    compact: false,
-    indent: {
-      parentheses: true,
-      adjustMultilineComment: true,
-      style: "  ",
-      base: 0
-    }
-  }
+  stage: 2,
+  optional: [
+    "es7.decorators"
+  ]
 };
 
 var jshintConfig = {esnext:true};
