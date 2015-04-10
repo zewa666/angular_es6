@@ -14,7 +14,7 @@ module.exports = function(config) {
 
     jspm: {
       // Edit this to your needs
-      loadFiles: ['src/**/*.js', 'test/**/*.js', 'jspm_packages/github/angular/bower-angular@1.3.8.js',
+      loadFiles: ['src/**/*.js', 'test/**/*.js', 'jspm_packages/github/angular/bower-angular@1.3.15.js',
       'jspm_packages/github/angular/bower-angular-mocks@1.3.8.js']
     },
 
@@ -32,10 +32,10 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/**/*.js': ['6to5'],
-      'src/**/*.js': ['6to5']
+      'test/**/*.js': ['babel'],
+      'src/**/*.js': ['babel']
     },
-    '6to5Preprocessor': {
+    'babelPreprocessor': {
       options: {
         sourceMap: 'inline',
         modules: 'system',

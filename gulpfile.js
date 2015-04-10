@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
-var to5 = require('gulp-6to5');
+var to5 = require('gulp-babel');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var assign = Object.assign || require('object.assign');

@@ -7,7 +7,7 @@ The tools used are:
 * [Gulp](http://gulpjs.com/) for automation of the ES6 to ES5 transpilation as well as BrowserSync
 * [BrowserSync](http://gulpjs.com/) automatically refreshes your browser on js/html/css changes
 * [jspm](http://jspm.io/) modern Package Manager supporting ES6 Module Syntax
-* [6to5](https://6to5.org/) for ES6 to ES5 transpilation
+* [BabelJS](https://babeljs.io/) for ES6 to ES5 transpilation
 
 ## Development
 All AngularJS Application files are located in the folder src/
