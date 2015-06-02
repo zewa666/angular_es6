@@ -18,7 +18,8 @@ System.config({
     },
     "github:twbs/bootstrap@3.3.4": {
       "jquery": "github:components/jquery@2.1.3"
-    }
+    },
+    "jquery": "github:components/jquery@2.1.3"
   }
 });
 

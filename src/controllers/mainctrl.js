@@ -1,6 +1,10 @@
-import {inject} from '../decorators/decorators';
+import {inject, register} from '../decorators/decorators';
 
-@inject('$scope', 'FlickrService')
+@register({
+  type:'controller',
+  inject: ['$scope', 'FlickrService']
+})
+/*@inject('$scope', 'FlickrService')*/
 export class MainCtrl {
   constructor($scope, flickrServiceInstance) {
     this.images = [];
