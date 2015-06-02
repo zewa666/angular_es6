@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import {register} from '../decorators/decorators';
 
 // Add jQuery shake animation
 (function($) {
@@ -51,6 +52,10 @@ import $ from 'jquery';
   };
 })(jQuery);
 
+@register({
+  name: 'shaker',
+  type: 'directive'
+})
 export class Shaker {
   constructor() {
     this.scope = {

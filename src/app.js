@@ -26,7 +26,7 @@ app.constant('baseURL', 'dist/');
 app.service('FlickrService', FlickrService);
 //app.controller('MainCtrl', MainCtrl);
 app.directive('flickrGallery', FlickrGallery);
-app.directive('shaker', Shaker);
+/*app.directive('shaker', Shaker);*/
 app.filter('titleHeaderStyler', TitleHeaderStyler);
 
 angular.element(document).ready(function() {
