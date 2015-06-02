@@ -9,23 +9,17 @@ var browserSync = require('browser-sync');
 var changed = require('gulp-changed');
 var plumber = require('gulp-plumber');
 var reload = browserSync.reload;
+var sourcemaps = require('gulp-sourcemaps');
 
 var path = {
-  source:['src/*.js', 'src/**/*.js'],
+  source:'src/**/*.js',
   html: ['index.html', 'src/**/*.html'],
   output:'dist/',
+  sourceMapPaths: '../src/'
 };
 
 var compilerOptions = {
-  filename: '',
-  filenameRelative: '',
-  blacklist: [],
   modules: 'system',
-  sourceMap: true,
-  sourceMapName: '',
-  sourceFileName: '',
-  sourceRoot: '',
-  moduleRoot: '',
   moduleIds: false,
   stage: 2,
   optional: [
@@ -39,7 +33,9 @@ gulp.task('build-system', function () {
   return gulp.src(path.source)
     .pipe(plumber())
     .pipe(changed(path.output, {extension: '.js'}))
+    .pipe(sourcemaps.init())
     .pipe(to5(assign({}, compilerOptions, {modules:'system'})))
+    .pipe(sourcemaps.write("."))
     .pipe(gulp.dest(path.output))
     .pipe(browserSync.reload({ stream: true }));
 });
