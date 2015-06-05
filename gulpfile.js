@@ -15,7 +15,8 @@ var path = {
   source:'src/**/*.js',
   html: ['index.html', 'src/**/*.html'],
   output:'dist/',
-  sourceMapPaths: '../src/'
+  sourceMapPaths: '../src/',
+  css: 'css/*.css'
 };
 
 var compilerOptions = {
@@ -65,7 +66,7 @@ gulp.task('serve', ['build'], function(done) {
     open: false,
     port: 9000,
     files: {
-      src: 'styles/*.css'
+      src: path.css
     },
     server: {
       baseDir: ['.'],
@@ -78,7 +79,7 @@ gulp.task('serve', ['build'], function(done) {
 });
 
 gulp.task('css', function () {
-    return gulp.src('styles/*.css')
+    return gulp.src(path.css)
         .pipe(reload({stream:true}));
 });
 
@@ -87,13 +88,5 @@ gulp.task('watch', ['serve'], function() {
   watcher.on('change', function(event) {
     console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
   });
-  gulp.watch("styles/*.css", ['css']);
-});
-
-gulp.task('prepare-release', function(callback){
-  return runSequence(
-    'build',
-    'lint',
-    callback
-  );
+  gulp.watch(path.css, ['css']);
 });
