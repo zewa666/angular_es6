@@ -1,4 +1,3 @@
-/*jslint esnext: true */
 export class FlickrService {
   constructor($http) {
     this.$http = $http;
