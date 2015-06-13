@@ -1,7 +1,8 @@
 import $ from 'jquery';
-import {register} from '../decorators/decorators';
+import {directive, inject} from '../../config/decorators';
 
 // Add jQuery shake animation
+/* jshint ignore:start */
 (function($) {
   $.fn.shake = function(o) {
     if (typeof o === 'function')
@@ -51,25 +52,22 @@ import {register} from '../decorators/decorators';
     });
   };
 })(jQuery);
+/* jshint ignore:end */
 
-@register({
-  name: 'shaker',
-  type: 'directive'
+/* jshint ignore:start */
+@directive({
+  scope: {
+    count: '=',
+    duration: '=',
+    distance: '='
+  },
+  restrict: 'A'
 })
+@inject('$element')
+/* jshint ignore:end */
 export class Shaker {
-  constructor() {
-    this.scope = {
-      count: '=count',
-      duration: '=duration',
-      distance: '=distance'
-    };
-
-    this.restrict = 'A';
-    this.link = (scope, element) => {
-      element.on('click', () => {
-        this.shake(element, scope.count, scope.distance, scope.duration, scope.direction);
-      });
-    }
+  constructor ($element) {
+    this.shake($element, this.count, this.distance, this.duration, this.direction);
   }
 
   shake(element, shakes, distance, duration, direction) {

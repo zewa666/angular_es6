@@ -1,0 +1,19 @@
+<div
+  class="row">
+  <div
+    class="col-sm-6 col-md-3 text-center"
+    ng-repeat="image in ctrl.data"
+    shaker
+    duration="120"
+    count="2"
+    direction="left"
+    distance="20">
+    <h4>{{ image.title | titleHeaderStyler }}</h4>
+    <a
+      class="thumbnail">
+      <img
+        style="width: 260px; height: 180px;"
+        ng-src="{{ image.media.m }}">
+    </a>
+  </div>
+</div>

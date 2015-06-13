@@ -42,6 +42,136 @@ In order to start the application do the following:
   ```
 7. Open up your favorite Browser and navigate to [http://localhost:9000](http://localhost:9000) to see the app.
 
+## Using decorators
+
+### Constants
+
+```
+import {constant} from './path/to/config/decorators';
+
+@constant
+export default class MyConstant {
+  
+}
+```
+
+### Values
+
+```
+import {value} from './path/to/config/decorators';
+
+@value
+export default class MyValue {
+  
+}
+```
+
+### Factories
+
+```
+import {factory} from './path/to/config/decorators';
+
+@factory
+export default class MyFactory {
+  constructor (/* dependancies */) { }
+}
+```
+
+### Services
+
+```
+import {service} from './path/to/config/decorators';
+
+@service
+export default class MyService {
+  constructor (/* dependancies */) { }
+}
+```
+
+### Providers
+
+```
+import {provider} from './path/to/config/decorators';
+
+@constant
+export default class MyProvider {
+  constructor (/* dependancies */) { }
+}
+```
+
+### Controllers
+
+```
+import {controller} from './path/to/config/decorators';
+
+@controller
+export default class MyController {
+  constructor (/* dependancies */) { }
+}
+```
+
+### Directives
+
+```
+import {directive} from './path/to/config/decorators';
+import {baseURL} from './path/to/config/constants';
+
+@directive({
+  restrict: 'E',
+  templateUrl: `${baseURL}/path/to/the/template.html`
+})
+export default class MyController {
+  constructor (/* dependancies */) {
+    this.foo = 'bar';
+  }
+}
+
+// In template.html :
+
+<p>{{ ctrl.foo }} will display "bar"</p>
+```
+
+### Filters
+
+```
+import {filter} from './path/to/config/decorators';
+
+@filter
+export default class MyFilter {
+  constructor (/* dependancies */) { }
+  filter (input) {
+    return input.toUpperCase();
+  }
+}
+```
+
+### Injections
+
+```
+import {inject} from './path/to/config/decorators';
+
+@controller
+@inject('$http', 'MyService')
+export default class MyController {
+  constructor ($http, MyService) { }
+}
+```
+
+### Injection as a property
+
+```
+import {inject} from './path/to/config/decorators';
+
+@controller
+export default class MyController {
+  @inject $http = null;
+  @inject MyService = null;
+  doSomething () {
+    $http.get(this.MyService.path);
+  }
+}
+```
+
 
 ## Running Unit Tests
 
