@@ -14,8 +14,9 @@ module.exports = function(config) {
 
     jspm: {
       // Edit this to your needs
-      loadFiles: ['src/**/*.js', 'test/**/*.js', 'jspm_packages/github/angular/bower-angular@1.3.15.js',
-      'jspm_packages/github/angular/bower-angular-mocks@1.3.8.js']
+      loadFiles: [
+        'src/**/*.js'
+      ]
     },
 
 
@@ -41,7 +42,8 @@ module.exports = function(config) {
         modules: 'system',
         moduleIds: false,
         optional: [
-          "es7.decorators"
+          "es7.decorators",
+          "es7.classProperties"
         ]
       }
     },
@@ -71,11 +73,11 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: true
   });
 };
