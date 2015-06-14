@@ -23,7 +23,7 @@ decoratorsModule.run(_$injector_ => {
  *
  *  class MyOtherController {
  *    @inject $http = null;
- *    $inject MyService = null;
+ *    @inject MyService = null;
  *    doSomething () {
  *      this.MyService.doServiceTask();
  *    }
