@@ -31,23 +31,47 @@ decoratorsModule.run(_$injector_ => {
  */
 export function inject (...components) {
   if (typeof components[0] === 'object') {
-    let descriptor = {
-      get: () => {
-        try {
-          return $injector.get(components[1]);
-        } catch (err) {
-          throw new Error(`${components[1]} cannot be injected as a property. Inject it in the controller.`);
+    let key = components[1];
+
+    return {
+        get: () => {
+          try {
+            return $injector.get(key);
+          } catch (err) {
+            throw new Error(`${key} cannot be injected as a property. Inject it in the controller.`);
+          }
         }
-      }
-    };
-    components[0].$inject = components[0].$inject || [];
-    components[0].$inject.push(components[1]);
-    return descriptor;
+      };
   } else {
     return function decorate (target, key, property) {
       target.$inject = components;
     };
   }
+}
+
+/**
+ * @exemple
+ *  import {injectAs} from './decorators';
+ *
+ *  class MyController {
+ *    @injectAs('MyService') service = null;
+ *    constructor() {
+ *      this.service.doSomething();
+ *    }
+ *  }
+ */
+export function injectAs (dep) {
+  return function decorate (target, key, descriptor) {
+    return {
+        get: () => {
+          try {
+            return $injector.get(dep);
+          } catch (err) {
+            throw new Error(`${name} cannot be injected as a property. Inject it in the controller.`);
+          }
+        }
+      };
+  };
 }
 
 /**
