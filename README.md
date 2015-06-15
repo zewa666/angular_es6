@@ -166,8 +166,13 @@ import {inject} from './path/to/config/decorators';
 export default class MyController {
   @inject $http = null;
   @inject MyService = null;
+  @injectAs('$q') Promise = null;
   doSomething () {
-    $http.get(this.MyService.path);
+    return this.Promise((resolve, reject) {
+      $http.get(this.MyService.path)
+        .success(data => resolve(data)
+        .error(err => reject(err));
+    });
   }
 }
 ```
