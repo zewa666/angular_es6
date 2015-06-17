@@ -115,7 +115,7 @@ export function directive (opts) {
         controller: [...inject, function (...deps) {
           return new Target(...deps);
         }],
-        controllerAs: 'ctrl',
+        controllerAs: opts.controllerAs || 'ctrl',
         bindToController: true,
         require: opts.require
       };
