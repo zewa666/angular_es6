@@ -51,7 +51,9 @@ import {constant} from './path/to/config/decorators';
 
 @constant
 export default class MyConstant {
-  
+  constructor () {
+    return 'my-constant';
+  }
 }
 ```
 
@@ -62,7 +64,9 @@ import {value} from './path/to/config/decorators';
 
 @value
 export default class MyValue {
-  
+  constructor () {
+    return 'my-value';
+  }
 }
 ```
 
