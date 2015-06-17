@@ -10,12 +10,14 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jspm', 'jasmine'],
+    frameworks: ['jspm', 'jasmine', 'es6-shim'],
 
     jspm: {
       // Edit this to your needs
       loadFiles: [
-        'src/**/*.js'
+        'jspm_packages/github/angular/bower-angular@1.4.0/angular.js',
+        'src/**/*.js',
+        'src/**/*.html'
       ]
     },
 
@@ -26,15 +28,15 @@ module.exports = function(config) {
 
 
     // list of files to exclude
-    exclude: [
-    ],
+    exclude: [],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'test/**/*.js': ['babel'],
-      'src/**/*.js': ['babel']
+      'src/**/*.js': ['babel'],
+      '**/*.html': ['ng-html2js']
     },
     'babelPreprocessor': {
       options: {
@@ -46,6 +48,12 @@ module.exports = function(config) {
           "es7.classProperties"
         ]
       }
+    },
+
+    ngHtml2JsPreprocessor: {
+      stripPrefix: 'src',
+      prependPrefix: 'dist',
+      moduleName: 'mocked-templates'
     },
 
     // test results reporter to use
@@ -78,6 +86,6 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true
+    singleRun: false
   });
 };

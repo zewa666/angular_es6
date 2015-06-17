@@ -19,6 +19,8 @@
     "document": false,
     "angular": false,
     "System": false,
+    "jasmine": false,
+    "inject": false,
     "describe": false,
     "beforeEach": false,
     "expect": false,

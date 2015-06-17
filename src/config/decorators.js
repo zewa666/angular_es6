@@ -99,11 +99,11 @@ export function injectAs (dep) {
  *  }
  */
 export function directive (opts) {
-  return function decorate (target) {
-    let name = opts.name || target.name;
+  return function decorate (Target) {
+    let name = opts.name || Target.name;
     name = name.substring(0,1).toLowerCase() + name.substring(1);
     function factory(...deps) {
-      let inject = target.$inject || [];
+      let inject = Target.$inject || [];
       let directiveDefinitionObject = {
         priority: opts.priority,
         template: opts.template,
@@ -113,20 +113,20 @@ export function directive (opts) {
         templateNamespace: opts.templateNamespace,
         scope: opts.scope,
         controller: [...inject, function (...deps) {
-          return new target(...deps);
+          return new Target(...deps);
         }],
         controllerAs: 'ctrl',
         bindToController: true,
         require: opts.require
       };
-      if (target.compile) {
+      if (Target.compile) {
         directiveDefinitionObject.compile = function compile(...args) {
-          return target.compile(...args);
+          return Target.compile(...args);
         };
       }
-      if (target.link) {
+      if (Target.link) {
         directiveDefinitionObject.link = function link(...args) {
-          return target.link(...args);
+          return Target.link(...args);
         };
       }
       return directiveDefinitionObject;
@@ -181,12 +181,13 @@ export function controller (target) {
  *    }
  *  }
  */
-export function filter (target) {
-  let name = target.name;
+export function filter (Target) {
+  let name = Target.name;
   name = name.substring(0,1).toLowerCase() + name.substring(1);
-  let inject = target.$inject || [];
-  decoratorsModule.filter(name, [...inject, function (...deps) {
-    return new target(...deps).filter;
+  let deps = Target.$inject || [];
+  decoratorsModule.filter(name, [...deps, function (...deps) {
+    let instance = new Target();
+    return function (...args) { return instance.filter(...args); };
   }]);
 }
 /**
@@ -194,20 +195,30 @@ export function filter (target) {
  *  import {constant} from './decorators';
  *
  *  @controller
- *  export default class MyConstant {}
+ *  export default class MyConstant {
+ *    constructor(...deps) {
+ *      return () => {};
+ *    }
+ *  }
  */
-export function constant (target) {
-  return register({ type: 'constant' })(target);
+export function constant (Target) {
+  let name = Target.name;
+  name = name.substring(0,1).toLowerCase() + name.substring(1);
+  return register({ type: 'constant', name: name })(new Target());
 }
 /**
  * @exemple
  *  import {value} from './decorators';
  *
  *  @controller
- *  export default class MyValue {}
+ *  export default class MyValue {
+ *    constructor(...deps) {
+ *      return () => {};
+ *    }
+ *  }
  */
-export function value (target) {
-  return register({ type: 'value' })(target);
+export function value (Target) {
+  return register({ type: 'value', name: Target.name })(new Target());
 }
 /**
  * @exemple

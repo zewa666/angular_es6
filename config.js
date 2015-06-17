@@ -18,8 +18,8 @@ System.config({
 
 System.config({
   "map": {
-    "angular": "github:angular/bower-angular@1.3.15",
-    "angular-mocks": "github:angular/bower-angular-mocks@1.3.8",
+    "angular": "github:angular/bower-angular@1.4.0",
+    "angular-mocks": "github:angular/bower-angular-mocks@1.4.0",
     "babel": "npm:babel-core@5.5.7",
     "babel-runtime": "npm:babel-runtime@5.5.7",
     "bootstrap": "github:twbs/bootstrap@3.3.4",
@@ -27,8 +27,8 @@ System.config({
     "jquery": "github:components/jquery@2.1.3",
     "traceur": "github:jmcriffey/bower-traceur@0.0.88",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88",
-    "github:angular/bower-angular-mocks@1.3.8": {
-      "angular": "github:angular/bower-angular@1.3.15"
+    "github:angular/bower-angular-mocks@1.4.0": {
+      "angular": "github:angular/bower-angular@1.4.0"
     },
     "github:jspm/nodelibs-process@0.1.1": {
       "process": "npm:process@0.10.1"
