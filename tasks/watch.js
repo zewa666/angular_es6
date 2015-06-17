@@ -33,7 +33,7 @@ var compilerOptions = {
 var jshintConfig = {esnext:true};
 
 gulp.task('build-system', function () {
-  return gulp.src(path.source)
+  return gulp.src(path.scripts)
     .pipe(plumber())
     .pipe(changed(path.output, {extension: '.js'}))
     .pipe(sourcemaps.init())
@@ -56,7 +56,7 @@ gulp.task('build-html', function () {
 });
 
 gulp.task('lint', function() {
-  return gulp.src(path.source)
+  return gulp.src(path.scripts)
     .pipe(jshint(jshintConfig))
     .pipe(jshint.reporter(stylish));
 });
@@ -99,7 +99,7 @@ gulp.task('css', function () {
 });
 
 gulp.task('watch', ['serve'], function() {
-  var watcher = gulp.watch([path.source, path.html], ['build']);
+  var watcher = gulp.watch([path.scripts, path.html], ['build']);
   watcher.on('change', function(event) {
     console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
   });

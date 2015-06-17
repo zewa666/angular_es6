@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
   path = {
-    source:'src/**/*.js',
+    source: 'src',
+    scripts: 'src/**/*.js',
     html: ['index.html', 'src/**/*.html'],
     output:'dist/',
     sourceMapPaths: '../src/',

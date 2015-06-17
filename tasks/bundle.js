@@ -33,7 +33,7 @@ gulp.task('bundle-css', function () {
 });
 
 gulp.task('bundle-templates', function () {
-  return gulp.src(path.output + '/**/*.html')
+  return gulp.src(path.source + '/**/*.html')
     .pipe(gulp.dest(path.bundle + 'dist'));
 });
 
