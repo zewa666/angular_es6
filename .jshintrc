@@ -1,0 +1,29 @@
+{
+  "node": true,
+  "esnext": true,
+  "bitwise": false,
+  "curly": false,
+  "eqeqeq": true,
+  "eqnull": true,
+  "immed": true,
+  "latedef": true,
+  "newcap": true,
+  "noarg": true,
+  "undef": true,
+  "strict": false,
+  "globalstrict": true,
+  "trailing": true,
+  "smarttabs": true,
+  "globals": {
+    "window": false,
+    "document": false,
+    "angular": false,
+    "System": false,
+    "jasmine": false,
+    "inject": false,
+    "describe": false,
+    "beforeEach": false,
+    "expect": false,
+    "it": false
+  }
+}

@@ -1,10 +1,11 @@
 import angular from 'angular';
 import * as mocks from 'angular-mocks';
+import {appName} from '../../config/constants';
 
 describe('FlickrService', () => {
 
   var service, $httpBackend;
-  beforeEach(() => { angular.mock.module('AngularES6') });
+  beforeEach(() => { angular.mock.module(appName); });
 
   beforeEach(mocks.default.inject((_$httpBackend_, _FlickrService_) => {
     service = _FlickrService_;

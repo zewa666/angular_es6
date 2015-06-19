@@ -1,92 +1,15 @@
-var gulp = require('gulp');
-var runSequence = require('run-sequence');
-var to5 = require('gulp-babel');
-var jshint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
-var assign = Object.assign || require('object.assign');
-var fs = require('fs');
-var browserSync = require('browser-sync');
-var changed = require('gulp-changed');
-var plumber = require('gulp-plumber');
-var reload = browserSync.reload;
-var sourcemaps = require('gulp-sourcemaps');
+var gulp = require('gulp'),
+  path = {
+    source: 'src',
+    scripts: 'src/**/*.js',
+    html: ['index.html', 'src/**/*.html'],
+    output:'dist/',
+    sourceMapPaths: '../src/',
+    css: 'css/*.css',
+    bundle: 'bundle/',
+    appmodule: 'src/app'
+  },
+  bundleTask = require('./tasks/bundle')(path),
+  watchTask = require('./tasks/watch')(path);
 
-var path = {
-  source:'src/**/*.js',
-  html: ['index.html', 'src/**/*.html'],
-  output:'dist/',
-  sourceMapPaths: '../src/',
-  css: 'css/*.css'
-};
-
-var compilerOptions = {
-  modules: 'system',
-  moduleIds: false,
-  stage: 2,
-  optional: [
-    "es7.decorators"
-  ]
-};
-
-var jshintConfig = {esnext:true};
-
-gulp.task('build-system', function () {
-  return gulp.src(path.source)
-    .pipe(plumber())
-    .pipe(changed(path.output, {extension: '.js'}))
-    .pipe(sourcemaps.init())
-    .pipe(to5(assign({}, compilerOptions, {modules:'system'})))
-    .pipe(sourcemaps.write("."))
-    .pipe(gulp.dest(path.output))
-    .pipe(browserSync.reload({ stream: true }));
-});
-
-gulp.task('build-html', function () {
-  return gulp.src(path.html)
-    .pipe(changed(path.output, {extension: '.html'}))
-    .pipe(gulp.dest(path.output))
-    .pipe(browserSync.reload({ stream: true }));
-});
-
-gulp.task('lint', function() {
-  return gulp.src(path.source)
-    .pipe(jshint(jshintConfig))
-    .pipe(jshint.reporter(stylish));
-});
-
-gulp.task('build', function(callback) {
-  return runSequence(
-    ['build-system', 'build-html'],
-    callback
-  );
-});
-
-gulp.task('serve', ['build'], function(done) {
-  browserSync({
-    open: false,
-    port: 9000,
-    files: {
-      src: path.css
-    },
-    server: {
-      baseDir: ['.'],
-      middleware: function (req, res, next) {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        next();
-      }
-    }
-  }, done);
-});
-
-gulp.task('css', function () {
-    return gulp.src(path.css)
-        .pipe(reload({stream:true}));
-});
-
-gulp.task('watch', ['serve'], function() {
-  var watcher = gulp.watch([path.source, path.html], ['build']);
-  watcher.on('change', function(event) {
-    console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-  });
-  gulp.watch(path.css, ['css']);
-});
+gulp.task('default', ['watch']);
