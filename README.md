@@ -188,3 +188,6 @@ In order to run the unit tests do all mentioned steps from above and the additio
   ```shell
   karma start
   ```
+
+## Credits
+Special thanks goes to [Hadrien Lanneau](https://github.com/hadrienl) for his great contribution to this project
