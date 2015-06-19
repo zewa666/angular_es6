@@ -116,7 +116,7 @@ export function directive (opts) {
           return new Target(...deps);
         }],
         controllerAs: opts.controllerAs || 'ctrl',
-        bindToController: true,
+        bindToController: opts.bindToController || true,
         require: opts.require
       };
       if (Target.compile) {
