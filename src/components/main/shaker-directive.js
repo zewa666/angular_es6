@@ -67,7 +67,9 @@ import {directive, inject} from '../../config/decorators';
 /* jshint ignore:end */
 export class Shaker {
   constructor ($element) {
-    this.shake($element, this.count, this.distance, this.duration, this.direction);
+    $element.on('click', () => {
+      this.shake($element, this.count, this.distance, this.duration, this.direction);
+    });
   }
 
   shake(element, shakes, distance, duration, direction) {

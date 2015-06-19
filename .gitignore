@@ -2,3 +2,7 @@ node_modules/
 jspm_packages/
 bundle
 dist
+
+
+*.sublime-project		+bundle
+*.sublime-workspace

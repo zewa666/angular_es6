@@ -10,7 +10,7 @@ decoratorsModule.run(_$injector_ => {
 });
 
 /**
- * @exemple
+ * @example
  *  import {inject} from './decorators';
  *
  *  @inject('$scope', '$http')
@@ -50,7 +50,7 @@ export function inject (...components) {
 }
 
 /**
- * @exemple
+ * @example
  *  import {injectAs} from './decorators';
  *
  *  class MyController {
@@ -75,7 +75,7 @@ export function injectAs (dep) {
 }
 
 /**
- * @exemple
+ * @example
  *  import {directive, inject} from './decorators';
  *  import {baseUrl} from './constants';
  *
@@ -137,7 +137,7 @@ export function directive (opts) {
 
 
 /**
- * @exemple
+ * @example
  *  import {register} from './decorators';
  *
  *  @register({
@@ -157,17 +157,17 @@ export function register (opts) {
 }
 
 /**
- * @exemple
+ * @example
  *  import {controller} from './decorators';
  *
  *  @controller
- *  export defaultclass MyController {}
+ *  export default class MyController {}
  */
 export function controller (target) {
   return register({ type: 'controller' })(target);
 }
 /**
- * @exemple
+ * @example
  *  import {filter, inject} from './decorators';
  *
  *  @filter
@@ -191,7 +191,7 @@ export function filter (Target) {
   }]);
 }
 /**
- * @exemple
+ * @example
  *  import {constant} from './decorators';
  *
  *  @controller
@@ -207,7 +207,7 @@ export function constant (Target) {
   return register({ type: 'constant', name: name })(new Target());
 }
 /**
- * @exemple
+ * @example
  *  import {value} from './decorators';
  *
  *  @controller
@@ -221,7 +221,7 @@ export function value (Target) {
   return register({ type: 'value', name: Target.name })(new Target());
 }
 /**
- * @exemple
+ * @example
  *  import {factory} from './decorators';
  *
  *  @controller
@@ -231,7 +231,7 @@ export function factory (target) {
   return register({ type: 'factory' })(target);
 }
 /**
- * @exemple
+ * @example
  *  import {service} from './decorators';
  *
  *  @controller
@@ -241,7 +241,7 @@ export function service (target) {
   return register({ type: 'service' })(target);
 }
 /**
- * @exemple
+ * @example
  *  import {provider} from './decorators';
  *
  *  @controller
