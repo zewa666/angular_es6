@@ -1,6 +1,6 @@
 {
   "name": "angular-es6",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "AngularJS with JSPM and Babel for ES6",
   "keywords": [
     "angularjs",

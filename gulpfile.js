@@ -4,7 +4,6 @@ var gulp = require('gulp'),
     scripts: 'src/**/*.js',
     html: ['index.html', 'src/**/*.html'],
     output:'dist/',
-    sourceMapPaths: '../src/',
     css: 'css/*.css',
     bundle: 'bundle/',
     appmodule: 'src/app'
