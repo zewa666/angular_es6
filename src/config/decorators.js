@@ -250,3 +250,22 @@ export function service (target) {
 export function provider (target) {
   return register({ type: 'provider' })(target);
 }
+
+/**
+ * @example
+ *  import {routes} from './decorators';
+ *
+ *  @controller
+ *  @routes[
+ *    { path: '/',                component: 'home' },
+ *    { path: '/users/:username', component: 'profile' },
+ *  ]
+ *  export default class AppController {}
+ */
+export function routes (opts) {
+  return function decorate(target, key, descriptor) {
+    target.$routeConfig = opts;
+    target.$inject = target.$inject || [];
+    target.$inject.unshift('$router');
+  };
+}
