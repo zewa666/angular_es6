@@ -5,6 +5,8 @@ export default decoratorsModule;
 
 let $injector;
 
+export let routes = [];
+
 decoratorsModule.run(_$injector_ => {
   $injector = _$injector_;
 });
@@ -249,4 +251,25 @@ export function service (target) {
  */
 export function provider (target) {
   return register({ type: 'provider' })(target);
+}
+
+
+/**
+ * @example
+ *  import {route} from './decorators';
+ *
+ *  @route({
+ *    path: '/',
+ *    settings: {
+ *      controller: 'MyController',
+ *      templateUrl: 'PATH_TO_TEMPLATE',
+ *      controllerAs: 'ctrl'
+ *    }
+ *  })
+ *  export default class MyController {}
+ */
+export function route (opts) {
+  return function decorate() {
+    routes.push(opts);
+  };
 }

@@ -1,0 +1,14 @@
+<h1>
+    Flickr Photo Album
+    <a href="#/info" class="btn btn-primary">
+        <i class="glyphicon glyphicon-info-sign"> </i>
+    </a>
+</h1>
+
+<div class="form-inline form-group">
+    <label for="txtSearchTag">Search tag:</label>
+    <input type="text" id="txtSearchTag" ng-model="ctrl.searchTag" class="form-control" required="required">
+    <button class="form-control" ng-click="ctrl.service.loadImages(ctrl.searchTag)">Load images</button>
+    <span class="pull-right">Number of hits: {{ctrl.service.numberOfHits()}}</span>
+</div>
+<flickr-gallery data="ctrl.service.images" />

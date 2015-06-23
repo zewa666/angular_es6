@@ -42,7 +42,9 @@
     "dependencies": {
       "angular": "github:angular/bower-angular@^1.4.0",
       "angular-mocks": "github:angular/angular-mocks@^1.4.0",
-      "bootstrap": "github:github:twbs/bootstrap@^3.3.1"
+      "angular-route": "github:angular/bower-angular-route@^1.4.1",
+      "bootstrap": "github:github:twbs/bootstrap@^3.3.1",
+      "marked": "npm:marked@^0.3.3"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.5.6",
