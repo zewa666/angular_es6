@@ -9,6 +9,7 @@ var gulp = require('gulp'),
     appmodule: 'src/app'
   },
   bundleTask = require('./tasks/bundle')(path),
-  watchTask = require('./tasks/watch')(path);
+  watchTask = require('./tasks/watch')(path),
+  coverTask = require('./tasks/cover')(path);
 
 gulp.task('default', ['watch']);

@@ -15,7 +15,7 @@ module.exports = function(config) {
     jspm: {
       // Edit this to your needs
       loadFiles: [
-        'jspm_packages/github/angular/bower-angular@1.4.0/angular.js',
+        'jspm_packages/github/angular/bower-angular@1.4.1/angular.js',
         'src/**/*.js',
         'src/**/*.html'
       ]

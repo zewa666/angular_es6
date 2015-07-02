@@ -189,5 +189,16 @@ In order to run the unit tests do all mentioned steps from above and the additio
   karma start
   ```
 
+## Running code coverage
+
+To create a full code-coverage report execute the following command:
+  ```shell
+    gulp cover
+  ```
+  
+This will result in a new folder called `coverage` in your project. It contains an index.html, which you can open with
+your browser to get a nice code-coverage-report
+
+
 ## Credits
 Special thanks goes to [Hadrien Lanneau](https://github.com/hadrienl) for his great contribution to this project
