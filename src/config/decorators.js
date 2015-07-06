@@ -100,7 +100,7 @@ export function injectAs (dep) {
  */
 export function directive (opts) {
   return function decorate (Target) {
-    let name = opts.name || Target.name;
+    let name = opts.name || getName(Target);
     name = name.substring(0,1).toLowerCase() + name.substring(1);
     function factory(...deps) {
       let inject = Target.$inject || [];
@@ -151,7 +151,7 @@ export function register (opts) {
       target.$inject = opts.inject;
     }
 
-    let name = opts.name || target.name;
+    let name = opts.name || getName(target);
     decoratorsModule[opts.type](name, target);
   };
 }
@@ -182,7 +182,7 @@ export function controller (target) {
  *  }
  */
 export function filter (Target) {
-  let name = Target.name;
+  let name = getName(Target);
   name = name.substring(0,1).toLowerCase() + name.substring(1);
   let deps = Target.$inject || [];
   decoratorsModule.filter(name, [...deps, function (...deps) {
@@ -202,7 +202,7 @@ export function filter (Target) {
  *  }
  */
 export function constant (Target) {
-  let name = Target.name;
+  let name = getName(Target);
   name = name.substring(0,1).toLowerCase() + name.substring(1);
   return register({ type: 'constant', name: name })(new Target());
 }
@@ -218,7 +218,7 @@ export function constant (Target) {
  *  }
  */
 export function value (Target) {
-  return register({ type: 'value', name: Target.name })(new Target());
+  return register({ type: 'value', name: getName(Target) })(new Target());
 }
 /**
  * @example
@@ -249,4 +249,12 @@ export function service (target) {
  */
 export function provider (target) {
   return register({ type: 'provider' })(target);
+}
+
+function getName (o) {
+  if (o.name) {
+    return o.name;
+  }
+  // IE sux
+  return o.toString().match(/function\s?(.*)\s?\(/)[1];
 }
