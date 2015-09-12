@@ -135,13 +135,18 @@ export function directive (opts = {}) {
               controller.compile) {
             return controller.compile(...args);
           }
-          return function link (...args) {
+          return function link (scope, element, attrs, controllers) {
             if (Target.link) {
-              return Target.link(...args);
+              return Target.link(scope, element, attrs, controllers);
             }
-            if (controller &&
-                controller.link) {
-              return controller.link(...args);
+            if (controller) {
+              controller.$scope = scope;
+              controller.$element = element;
+              controller.$attrs = attrs;
+              controller.$controllers = controllers;
+              if (controller.link) {
+                return controller.link(scope, element, attrs, controllers);
+              }
             }
           };
         }
