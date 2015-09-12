@@ -88,22 +88,29 @@ export function injectAs (dep) {
  *  })
  *  @inject('$scope', '$element', '$attrs')
  *  class MyView {
- *    constructor($scope, $element, '$attrs') {
+ *    constructor($scope, $element, $attrs) {
  *      $element.on('click', e => console.log('click'));
  *    }
  *
- *    // If you want to use link function :
- *    static link (scope, element, attrs) {
+ *    // You may want to use link function :
+ *    static link (scope, element, attrs, controller) {
  *      element.on('click', e => console.log('click'));
+ *      scope.ctrl.foo = 'bar';
+ *    }
+ *    // But you should use a class method :
+ *    link (scope, element, attrs, controller) {
+ *      element.on('click', e => console.log('click'));
+ *      this.foo = 'bar';
  *    }
  *  }
  */
-export function directive (opts) {
+export function directive (opts = {}) {
   return function decorate (Target) {
     let name = opts.name || getTargetName(Target);
     name = name.substring(0,1).toLowerCase() + name.substring(1);
     function factory(...deps) {
-      let inject = Target.$inject || [];
+      let inject = Target.$inject || [],
+        controller;
       let directiveDefinitionObject = {
         priority: opts.priority,
         template: opts.template,
@@ -113,27 +120,38 @@ export function directive (opts) {
         templateNamespace: opts.templateNamespace,
         scope: opts.scope,
         controller: [...inject, function (...deps) {
-          return new Target(...deps);
+          controller = new Target(...deps);
+          return controller;
         }],
-        controllerAs: opts.controllerAs || 'ctrl',
-        bindToController: opts.bindToController || true,
-        require: opts.require
+        controllerAs: opts.scope ? opts.controllerAs || 'ctrl' : null,
+        bindToController: true,
+        require: opts.require,
+        replace: opts.replace,
+        compile: function compile (...args) {
+          if (Target.compile) {
+            return Target.compile(...args);
+          }
+          if (controller &&
+              controller.compile) {
+            return controller.compile(...args);
+          }
+          return function link (...args) {
+            if (Target.link) {
+              return Target.link(...args);
+            }
+            if (controller &&
+                controller.link) {
+              return controller.link(...args);
+            }
+          };
+        }
       };
-      if (Target.compile) {
-        directiveDefinitionObject.compile = function compile(...args) {
-          return Target.compile(...args);
-        };
-      }
-      if (Target.link) {
-        directiveDefinitionObject.link = function link(...args) {
-          return Target.link(...args);
-        };
-      }
       return directiveDefinitionObject;
     }
     decoratorsModule.directive(name, factory);
   };
 }
+
 
 
 /**
