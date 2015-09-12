@@ -1,7 +1,6 @@
 import angular from 'angular';
 
-let decoratorsModule = angular.module('decorators', []);
-export default decoratorsModule;
+export let decoratorsModule = angular.module('decorators', []);
 
 let $injector;
 
@@ -10,7 +9,7 @@ decoratorsModule.run(_$injector_ => {
 });
 
 /**
- * @example
+ * @exemple
  *  import {inject} from './decorators';
  *
  *  @inject('$scope', '$http')
@@ -38,7 +37,8 @@ export function inject (...components) {
           try {
             return $injector.get(key);
           } catch (err) {
-            throw new Error(`${key} cannot be injected as a property. Inject it in the controller.`);
+            console.error(err);
+            throw new Error(`${key} cannot be injected as a property. Inject it in the class level.`);
           }
         }
       };
@@ -50,7 +50,7 @@ export function inject (...components) {
 }
 
 /**
- * @example
+ * @exemple
  *  import {injectAs} from './decorators';
  *
  *  class MyController {
@@ -75,7 +75,7 @@ export function injectAs (dep) {
 }
 
 /**
- * @example
+ * @exemple
  *  import {directive, inject} from './decorators';
  *  import {baseUrl} from './constants';
  *
@@ -137,13 +137,13 @@ export function directive (opts) {
 
 
 /**
- * @example
+ * @exemple
  *  import {register} from './decorators';
  *
  *  @register({
  *    type: 'controller'
  *  })
- *  export default class MyController {}
+ *  export class MyController {}
  */
 export function register (opts) {
   return function decorate(target) {
@@ -157,22 +157,22 @@ export function register (opts) {
 }
 
 /**
- * @example
+ * @exemple
  *  import {controller} from './decorators';
  *
  *  @controller
- *  export default class MyController {}
+ *  export class MyController {}
  */
 export function controller (target) {
   return register({ type: 'controller' })(target);
 }
 /**
- * @example
+ * @exemple
  *  import {filter, inject} from './decorators';
  *
  *  @filter
  *  @inject('$http')
- *  export default class MyFilter {
+ *  export class MyFilter {
  *    constructor($http) {
  *      return this.
  *    }
@@ -191,11 +191,11 @@ export function filter (Target) {
   }]);
 }
 /**
- * @example
+ * @exemple
  *  import {constant} from './decorators';
  *
  *  @controller
- *  export default class MyConstant {
+ *  export class MyConstant {
  *    constructor(...deps) {
  *      return () => {};
  *    }
@@ -207,11 +207,11 @@ export function constant (Target) {
   return register({ type: 'constant', name: name })(new Target());
 }
 /**
- * @example
+ * @exemple
  *  import {value} from './decorators';
  *
  *  @controller
- *  export default class MyValue {
+ *  export class MyValue {
  *    constructor(...deps) {
  *      return () => {};
  *    }
@@ -221,31 +221,31 @@ export function value (Target) {
   return register({ type: 'value', name: getTargetName(Target) })(new Target());
 }
 /**
- * @example
+ * @exemple
  *  import {factory} from './decorators';
  *
  *  @controller
- *  export default class MyFactory {}
+ *  export class MyFactory {}
  */
 export function factory (target) {
   return register({ type: 'factory' })(target);
 }
 /**
- * @example
+ * @exemple
  *  import {service} from './decorators';
  *
  *  @controller
- *  export default class MyService {}
+ *  export class MyService {}
  */
 export function service (target) {
   return register({ type: 'service' })(target);
 }
 /**
- * @example
+ * @exemple
  *  import {provider} from './decorators';
  *
  *  @controller
- *  export default class Myprovider {}
+ *  export class Myprovider {}
  */
 export function provider (target) {
   return register({ type: 'provider' })(target);
