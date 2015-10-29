@@ -1,11 +1,13 @@
 {
   "name": "angular-es6",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "AngularJS with JSPM and Babel for ES6",
   "keywords": [
     "angularjs",
     "jspm",
-    "6to5"
+    "babel",
+    "ecmascript 6",
+    "ecmascript 7"
   ],
   "license": "MIT",
   "author": "Vildan Softic <zewa666@gmail.com>",
@@ -42,9 +44,10 @@
   },
   "jspm": {
     "dependencies": {
-      "angular": "github:angular/bower-angular@^1.4.1",
-      "angular-mocks": "github:angular/angular-mocks@^1.4.1",
-      "bootstrap": "github:twbs/bootstrap@^3.3.1"
+      "angular": "github:angular/bower-angular@^1.4.7",
+      "angular-mocks": "github:angular/bower-angular-mocks@^1.4.7",
+      "bootstrap": "github:twbs/bootstrap@^3.3.5",
+      "jquery": "github:components/jquery@^2.1.4"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.5.6",
