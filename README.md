@@ -35,7 +35,7 @@ you may use one of the following concrete implementations, which allow you to om
 
 ### Constants
 
-```
+```js
 import {constant} from './path/to/config/decorators';
 
 @constant
@@ -48,7 +48,7 @@ export default class MyConstant {
 
 ### Values
 
-```
+```js
 import {value} from './path/to/config/decorators';
 
 @value
@@ -61,7 +61,7 @@ export default class MyValue {
 
 ### Factories
 
-```
+```js
 import {factory} from './path/to/config/decorators';
 
 @factory
@@ -72,7 +72,7 @@ export default class MyFactory {
 
 ### Services
 
-```
+```js
 import {service} from './path/to/config/decorators';
 
 @service
@@ -83,7 +83,7 @@ export default class MyService {
 
 ### Providers
 
-```
+```js
 import {provider} from './path/to/config/decorators';
 
 @constant
@@ -94,7 +94,7 @@ export default class MyProvider {
 
 ### Controllers
 
-```
+```js
 import {controller} from './path/to/config/decorators';
 
 @controller
@@ -105,7 +105,7 @@ export default class MyController {
 
 ### Directives
 
-```
+```js
 import {directive} from './path/to/config/decorators';
 import {baseURL} from './path/to/config/constants';
 
@@ -126,7 +126,7 @@ export default class MyController {
 
 ### Filters
 
-```
+```js
 import {filter} from './path/to/config/decorators';
 
 @filter
@@ -143,7 +143,7 @@ export default class MyFilter {
 In order to inject existing components/services into your new component you can leverage the following decorator as
 depicted in the example below.
 
-```
+```js
 import {inject} from './path/to/config/decorators';
 
 @controller
@@ -158,7 +158,7 @@ export default class MyController {
 Let's say you want to inject a component/service but use it with a different property name. In order to do so use the
 `injectAs` decorator
 
-```
+```js
 import {inject, injectAs} from './path/to/config/decorators';
 
 @controller
@@ -193,9 +193,9 @@ In order to run the unit tests do all mentioned steps from above and the additio
 ## Running code coverage
 
 To create a full code-coverage report execute the following command:
-  ```shell
-    gulp cover
-  ```
+```shell
+gulp cover
+```
   
 This will result in a new folder called `coverage` in your project. It contains an index.html, which you can open with
 your browser to get a nice code-coverage-report
