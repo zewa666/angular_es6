@@ -12,9 +12,10 @@ import {baseURL} from '../../config/constants';
 @inject('$scope')
 /* jshint ignore:end */
 export default class FlickrGallery {
-  constructor ($scope) {
-    this.$scope = $scope;
+  select (image) {
+    console.log(this.$scope, image);
   }
+
   getData () {
     return this.data;
   }

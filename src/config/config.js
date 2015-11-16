@@ -1,10 +1,10 @@
 import angular from 'angular';
 import {appName} from './constants';
 
-import DecoratorsComponent from './decorators';
+import {decoratorsModule} from './decorators';
 
 let configComponent = angular.module(`${appName}.core`, [
-  DecoratorsComponent.name
+  decoratorsModule.name
 ]);
 
 export default configComponent;

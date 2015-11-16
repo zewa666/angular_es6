@@ -1,7 +1,6 @@
 import angular from 'angular';
 
-let decoratorsModule = angular.module('decorators', []);
-export default decoratorsModule;
+export let decoratorsModule = angular.module('decorators', []);
 
 let $injector;
 
@@ -10,7 +9,7 @@ decoratorsModule.run(_$injector_ => {
 });
 
 /**
- * @example
+ * @exemple
  *  import {inject} from './decorators';
  *
  *  @inject('$scope', '$http')
@@ -38,7 +37,8 @@ export function inject (...components) {
           try {
             return $injector.get(key);
           } catch (err) {
-            throw new Error(`${key} cannot be injected as a property. Inject it in the controller.`);
+            console.error(err);
+            throw new Error(`${key} cannot be injected as a property. Inject it in the class level.`);
           }
         }
       };
@@ -50,7 +50,7 @@ export function inject (...components) {
 }
 
 /**
- * @example
+ * @exemple
  *  import {injectAs} from './decorators';
  *
  *  class MyController {
@@ -75,7 +75,7 @@ export function injectAs (dep) {
 }
 
 /**
- * @example
+ * @exemple
  *  import {directive, inject} from './decorators';
  *  import {baseUrl} from './constants';
  *
@@ -88,22 +88,29 @@ export function injectAs (dep) {
  *  })
  *  @inject('$scope', '$element', '$attrs')
  *  class MyView {
- *    constructor($scope, $element, '$attrs') {
+ *    constructor($scope, $element, $attrs) {
  *      $element.on('click', e => console.log('click'));
  *    }
  *
- *    // If you want to use link function :
- *    static link (scope, element, attrs) {
+ *    // You may want to use link function :
+ *    static link (scope, element, attrs, controller) {
  *      element.on('click', e => console.log('click'));
+ *      scope.ctrl.foo = 'bar';
+ *    }
+ *    // But you should use a class method :
+ *    link (scope, element, attrs, controller) {
+ *      element.on('click', e => console.log('click'));
+ *      this.foo = 'bar';
  *    }
  *  }
  */
-export function directive (opts) {
+export function directive (opts = {}) {
   return function decorate (Target) {
     let name = opts.name || getTargetName(Target);
     name = name.substring(0,1).toLowerCase() + name.substring(1);
     function factory(...deps) {
-      let inject = Target.$inject || [];
+      let inject = Target.$inject || [],
+        controller;
       let directiveDefinitionObject = {
         priority: opts.priority,
         template: opts.template,
@@ -113,22 +120,37 @@ export function directive (opts) {
         templateNamespace: opts.templateNamespace,
         scope: opts.scope,
         controller: [...inject, function (...deps) {
-          return new Target(...deps);
+          controller = new Target(...deps);
+          return controller;
         }],
-        controllerAs: opts.controllerAs || 'ctrl',
-        bindToController: opts.bindToController || true,
-        require: opts.require
+        controllerAs: opts.scope ? opts.controllerAs || 'ctrl' : null,
+        bindToController: true,
+        require: opts.require,
+        replace: opts.replace,
+        compile: function compile (...args) {
+          if (Target.compile) {
+            return Target.compile(...args);
+          }
+          if (controller &&
+              controller.compile) {
+            return controller.compile(...args);
+          }
+          return function link (scope, element, attrs, controllers) {
+            if (Target.link) {
+              return Target.link(scope, element, attrs, controllers);
+            }
+            if (controller) {
+              controller.$scope = scope;
+              controller.$element = element;
+              controller.$attrs = attrs;
+              controller.$controllers = controllers;
+              if (controller.link) {
+                return controller.link(scope, element, attrs, controllers);
+              }
+            }
+          };
+        }
       };
-      if (Target.compile) {
-        directiveDefinitionObject.compile = function compile(...args) {
-          return Target.compile(...args);
-        };
-      }
-      if (Target.link) {
-        directiveDefinitionObject.link = function link(...args) {
-          return Target.link(...args);
-        };
-      }
       return directiveDefinitionObject;
     }
     decoratorsModule.directive(name, factory);
@@ -136,14 +158,15 @@ export function directive (opts) {
 }
 
 
+
 /**
- * @example
+ * @exemple
  *  import {register} from './decorators';
  *
  *  @register({
  *    type: 'controller'
  *  })
- *  export default class MyController {}
+ *  export class MyController {}
  */
 export function register (opts) {
   return function decorate(target) {
@@ -157,22 +180,22 @@ export function register (opts) {
 }
 
 /**
- * @example
+ * @exemple
  *  import {controller} from './decorators';
  *
  *  @controller
- *  export default class MyController {}
+ *  export class MyController {}
  */
 export function controller (target) {
   return register({ type: 'controller' })(target);
 }
 /**
- * @example
+ * @exemple
  *  import {filter, inject} from './decorators';
  *
  *  @filter
  *  @inject('$http')
- *  export default class MyFilter {
+ *  export class MyFilter {
  *    constructor($http) {
  *      return this.
  *    }
@@ -191,11 +214,11 @@ export function filter (Target) {
   }]);
 }
 /**
- * @example
+ * @exemple
  *  import {constant} from './decorators';
  *
  *  @controller
- *  export default class MyConstant {
+ *  export class MyConstant {
  *    constructor(...deps) {
  *      return () => {};
  *    }
@@ -207,11 +230,11 @@ export function constant (Target) {
   return register({ type: 'constant', name: name })(new Target());
 }
 /**
- * @example
+ * @exemple
  *  import {value} from './decorators';
  *
  *  @controller
- *  export default class MyValue {
+ *  export class MyValue {
  *    constructor(...deps) {
  *      return () => {};
  *    }
@@ -221,31 +244,31 @@ export function value (Target) {
   return register({ type: 'value', name: getTargetName(Target) })(new Target());
 }
 /**
- * @example
+ * @exemple
  *  import {factory} from './decorators';
  *
  *  @controller
- *  export default class MyFactory {}
+ *  export class MyFactory {}
  */
 export function factory (target) {
   return register({ type: 'factory' })(target);
 }
 /**
- * @example
+ * @exemple
  *  import {service} from './decorators';
  *
  *  @controller
- *  export default class MyService {}
+ *  export class MyService {}
  */
 export function service (target) {
   return register({ type: 'service' })(target);
 }
 /**
- * @example
+ * @exemple
  *  import {provider} from './decorators';
  *
  *  @controller
- *  export default class Myprovider {}
+ *  export class Myprovider {}
  */
 export function provider (target) {
   return register({ type: 'provider' })(target);
