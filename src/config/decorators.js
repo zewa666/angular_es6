@@ -194,7 +194,7 @@ export function filter (Target) {
  * @example
  *  import {constant} from './decorators';
  *
- *  @controller
+ *  @constant
  *  export default class MyConstant {
  *    constructor(...deps) {
  *      return () => {};
@@ -210,7 +210,7 @@ export function constant (Target) {
  * @example
  *  import {value} from './decorators';
  *
- *  @controller
+ *  @value
  *  export default class MyValue {
  *    constructor(...deps) {
  *      return () => {};
@@ -224,7 +224,7 @@ export function value (Target) {
  * @example
  *  import {factory} from './decorators';
  *
- *  @controller
+ *  @factory
  *  export default class MyFactory {}
  */
 export function factory (target) {
@@ -234,7 +234,7 @@ export function factory (target) {
  * @example
  *  import {service} from './decorators';
  *
- *  @controller
+ *  @service
  *  export default class MyService {}
  */
 export function service (target) {
@@ -244,7 +244,7 @@ export function service (target) {
  * @example
  *  import {provider} from './decorators';
  *
- *  @controller
+ *  @provider
  *  export default class Myprovider {}
  */
 export function provider (target) {
