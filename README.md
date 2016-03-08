@@ -86,7 +86,7 @@ export default class MyService {
 ```js
 import {provider} from './path/to/config/decorators';
 
-@constant
+@provider
 export default class MyProvider {
   constructor (/* dependancies */) { }
 }
